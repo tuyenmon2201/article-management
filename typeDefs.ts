@@ -27,5 +27,6 @@ export const typeDefs = gql`
     type Mutation {
         createArticle(article: ArticleInput): Article
         deleteArticle(id: String): Message
+        updateArticle(id: String, article: ArticleInput): Article
     }
 `;
