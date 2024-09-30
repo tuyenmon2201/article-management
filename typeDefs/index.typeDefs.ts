@@ -1,5 +1,5 @@
-import { typeDefsArticle } from "./article.typeDef";
-import { typeDefsCategory } from "./category.typeDef";
+import { typeDefsArticle } from "./article.typeDefs";
+import { typeDefsCategory } from "./category.typeDefs";
 
 export const typeDefs = [
     typeDefsArticle,

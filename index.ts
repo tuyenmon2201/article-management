@@ -8,7 +8,7 @@ import { connectDatabase } from "./config/database";
 import { ApolloServer } from "apollo-server-express";
 
 import { typeDefs } from "./typeDefs/index.typeDefs";
-import { resolvers } from "./resolvers";
+import { resolvers } from "./resolvers/index.resolvers";
 
 // Graphql
 const startServer = async () => {
