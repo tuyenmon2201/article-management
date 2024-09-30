@@ -22,7 +22,7 @@ export const typeDefsUser = gql`
     }
 
     type Query {
-        getUser(id: String): User
+        getUser(token: String): User
     }
 
     type Mutation {
