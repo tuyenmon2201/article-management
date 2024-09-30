@@ -4,7 +4,7 @@ import Category from "../models/category.model";
 export const resolversArticle = {
     Query: {
         getListArticle: async (_, args) => {
-            const { sortKey, sortValue } = args;
+            const { sortKey, sortValue, limitItems = 2, page = 1 } = args;
 
             // Sap xep
             const sort = {};
@@ -13,10 +13,16 @@ export const resolversArticle = {
             }
             // End sap xep
 
+            // Pagination
+            const skip: number = (page - 1) * limitItems;
+            // End pagination
+
             const articles = await Article
                 .find({
                     deleted: false
                 })
+                .limit(limitItems)
+                .skip(skip)
                 .sort(sort)
 
             return articles;
