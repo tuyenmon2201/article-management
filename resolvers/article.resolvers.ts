@@ -3,10 +3,21 @@ import Category from "../models/category.model";
 
 export const resolversArticle = {
     Query: {
-        getListArticle: async () => {
-            const articles = await Article.find({
-                deleted: false
-            });
+        getListArticle: async (_, args) => {
+            const { sortKey, sortValue } = args;
+
+            // Sap xep
+            const sort = {};
+            if(sortKey && sortValue){
+                sort[sortKey] = sortValue;
+            }
+            // End sap xep
+
+            const articles = await Article
+                .find({
+                    deleted: false
+                })
+                .sort(sort)
 
             return articles;
         },
