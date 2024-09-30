@@ -10,7 +10,8 @@ export const resolversArticle = {
                 limitItems = 2, 
                 page = 1,
                 filterKey,
-                filterValue
+                filterValue, 
+                keyword
             } = args;
 
             // Sap xep
@@ -33,6 +34,13 @@ export const resolversArticle = {
                 find[filterKey] = filterValue;
             }
             // End filter by status
+
+            // Search
+            if (keyword) {
+                const regex = new RegExp(keyword, "i");
+                find["title"] = regex;
+            }
+            // End search
 
             const articles = await Article
                 .find(find)
