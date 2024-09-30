@@ -40,6 +40,41 @@ export const resolversUser = {
                 message: "Đăng ký thành công!",
                 token: token
             };
+        },
+
+        login: async (_, args) => {
+            const { user } = args;
+
+            const email: string = user.email;
+            const password: string = user.password;
+
+            const existUser = await User.findOne({
+                email: email,
+                deleted: false
+            });
+
+            if(!existUser){
+                return {
+                    code: 400,
+                    message: "Email không tồn tại!"
+                };
+            }
+
+            if(md5(password) != md5(existUser.password)){
+                return {
+                    code: 400,
+                    message: "Sai mật khẩu!"
+                }
+            }
+
+            return {
+                id: existUser.id,
+                fullName: existUser.fullName,
+                email: existUser.email,
+                code: 200,
+                message: "Đăng nhập thành công!",
+                token: user.token
+            }
         }
     }
 };
