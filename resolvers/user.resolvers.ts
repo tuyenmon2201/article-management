@@ -3,6 +3,41 @@ import { generateRandomString } from "../helpers/generate.helper";
 import md5 from "md5";
 
 export const resolversUser = {
+    Query: {
+        getUser: async (_, args) => {
+            try {
+                const { id }= args;
+
+                const user = await User.findOne({
+                    _id: id,
+                    deleted: false
+                });
+
+                if(user){
+                    return {
+                        id: user.id,
+                        fullName: user.fullName,
+                        email: user.email,
+                        token: user.token,
+                        code: 200,
+                        message: "Lấy thông tin thành công!"
+                    };
+                }
+                else {
+                    return {
+                        code: 400,
+                        message: "ID không tồn tại!"
+                    };
+                }
+            } catch (error) {
+                return {
+                    code: 400,
+                    message: "ID không đúng định dạng!"
+                };
+            }
+        }
+    },
+
     Mutation: {
 
         register: async (_, args) => {
